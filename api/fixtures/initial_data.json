@@ -1,0 +1,293 @@
+[
+  {
+    "model": "api.vehicle",
+    "pk": 1,
+    "fields": {
+      "marca": "Toyota",
+      "modelo": "Corolla",
+      "year": 2022,
+      "km": 15000,
+      "price": "85000000",
+      "estado": "disponible",
+      "descripcion": "Excelente estado, único dueño",
+      "created_at": "2025-01-01T10:00:00Z",
+      "updated_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "api.vehicle",
+    "pk": 2,
+    "fields": {
+      "marca": "Mazda",
+      "modelo": "CX-5",
+      "year": 2021,
+      "km": 32000,
+      "price": "95000000",
+      "estado": "disponible",
+      "descripcion": "Full equipo, revisiones al día",
+      "created_at": "2025-01-01T10:00:00Z",
+      "updated_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "api.vehicle",
+    "pk": 3,
+    "fields": {
+      "marca": "Chevrolet",
+      "modelo": "Onix",
+      "year": 2023,
+      "km": 8000,
+      "price": "65000000",
+      "estado": "disponible",
+      "descripcion": "Casi nuevo, bajo kilometraje",
+      "created_at": "2025-01-01T10:00:00Z",
+      "updated_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "api.vehicle",
+    "pk": 4,
+    "fields": {
+      "marca": "Renault",
+      "modelo": "Koleos",
+      "year": 2021,
+      "km": 45000,
+      "price": "78000000",
+      "estado": "disponible",
+      "descripcion": "SUV espaciosa, ideal para familia",
+      "created_at": "2025-01-01T10:00:00Z",
+      "updated_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "api.vehicle",
+    "pk": 5,
+    "fields": {
+      "marca": "Nissan",
+      "modelo": "Kicks",
+      "year": 2022,
+      "km": 22000,
+      "price": "72000000",
+      "estado": "disponible",
+      "descripcion": "Económico y moderno",
+      "created_at": "2025-01-01T10:00:00Z",
+      "updated_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "api.vehicle",
+    "pk": 6,
+    "fields": {
+      "marca": "Kia",
+      "modelo": "Sportage",
+      "year": 2023,
+      "km": 12000,
+      "price": "98000000",
+      "estado": "disponible",
+      "descripcion": "Última generación, garantía vigente",
+      "created_at": "2025-01-01T10:00:00Z",
+      "updated_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "api.testimonial",
+    "pk": 1,
+    "fields": {
+      "name": "Carlos Mendoza",
+      "comment": "Excelente servicio de principio a fin. El equipo de DLX me ayudó a encontrar el carro perfecto y el proceso de financiación fue muy sencillo.",
+      "rating": 5,
+      "service": "Compra de vehículo",
+      "approved": true,
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "api.testimonial",
+    "pk": 2,
+    "fields": {
+      "name": "María González",
+      "comment": "El cerámico 9H quedó impecable en mi carro. Se nota la diferencia y la protección es increíble. Muy profesionales.",
+      "rating": 5,
+      "service": "Cerámico 9H",
+      "approved": true,
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "api.testimonial",
+    "pk": 3,
+    "fields": {
+      "name": "Juan Pérez",
+      "comment": "Compré mi primer carro con DLX y la experiencia fue excelente. Me asesoraron muy bien y conseguí un buen crédito.",
+      "rating": 5,
+      "service": "Financiamiento",
+      "approved": true,
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "api.service",
+    "pk": 1,
+    "fields": {
+      "title": "Corrección de Pintura + Cerámico 9H",
+      "description": "Elimina imperfecciones, rayones y swirls de la pintura, seguido de aplicación de recubrimiento cerámico de alta dureza para protección duradera.",
+      "benefits": ["Brillo espejo profesional", "Protección hasta 5 años", "Resistencia a rayones", "Hidrofobicidad superior"],
+      "price": "2500000",
+      "duration_days": 3,
+      "category": "ceramico",
+      "is_active": true,
+      "order": 1
+    }
+  },
+  {
+    "model": "api.service",
+    "pk": 2,
+    "fields": {
+      "title": "Tapicería Automotriz",
+      "description": "Renovación completa de interiores con materiales de alta calidad. Cuero, sintético o tela según tu preferencia.",
+      "benefits": ["Materiales premium", "Diseños personalizados", "Garantía de calidad", "Instalación profesional"],
+      "price": "1800000",
+      "duration_days": 5,
+      "category": "tapiceria",
+      "is_active": true,
+      "order": 2
+    }
+  },
+  {
+    "model": "api.service",
+    "pk": 3,
+    "fields": {
+      "title": "Polarizado Nanocerámico",
+      "description": "Láminas de última generación con tecnología nanocerámica para máxima protección UV y control térmico.",
+      "benefits": ["99% rechazo UV", "Reducción de calor", "Mayor privacidad", "No interfiere señales"],
+      "price": "450000",
+      "duration_days": 1,
+      "category": "polarizado",
+      "is_active": true,
+      "order": 3
+    }
+  },
+  {
+    "model": "api.service",
+    "pk": 4,
+    "fields": {
+      "title": "Latonería y Pintura",
+      "description": "Reparación de golpes, abolladuras y pintura automotriz con acabados de fábrica.",
+      "benefits": ["Pintura original", "Garantía de color", "Acabado de fábrica", "Reparación integral"],
+      "price": null,
+      "duration_days": 7,
+      "category": "latoneria",
+      "is_active": true,
+      "order": 4
+    }
+  },
+  {
+    "model": "api.service",
+    "pk": 5,
+    "fields": {
+      "title": "Mantenimiento Ligero",
+      "description": "Servicios de mantenimiento preventivo: cambio de aceite, filtros, revisión de frenos y más.",
+      "benefits": ["Repuestos originales", "Técnicos certificados", "Diagnóstico incluido", "Precios competitivos"],
+      "price": "250000",
+      "duration_days": 1,
+      "category": "mantenimiento",
+      "is_active": true,
+      "order": 5
+    }
+  },
+  {
+    "model": "api.creditoption",
+    "pk": 1,
+    "fields": {
+      "title": "Gestión de Financiamiento",
+      "description": "Te ayudamos a conseguir el mejor crédito para tu vehículo con las principales entidades financieras.",
+      "benefits": ["Tasas competitivas", "Aprobación rápida", "Sin cuota inicial", "Plazos flexibles hasta 72 meses"],
+      "interest_rate_min": 0.9,
+      "interest_rate_max": 1.5,
+      "max_months": 72,
+      "is_active": true,
+      "order": 1
+    }
+  },
+  {
+    "model": "api.creditoption",
+    "pk": 2,
+    "fields": {
+      "title": "Asesoría Financiera Completa",
+      "description": "Análisis personalizado de tu capacidad de endeudamiento y las mejores opciones de financiación.",
+      "benefits": ["Estudio de crédito gratis", "Comparación de ofertas", "Asesoría personalizada", "Trámites incluidos"],
+      "interest_rate_min": null,
+      "interest_rate_max": null,
+      "max_months": 60,
+      "is_active": true,
+      "order": 2
+    }
+  },
+  {
+    "model": "api.creditoption",
+    "pk": 3,
+    "fields": {
+      "title": "Compra de Cartera",
+      "description": "Unificamos tus deudas de vehículo con mejores condiciones y menor tasa de interés.",
+      "benefits": ["Menor cuota mensual", "Un solo pago", "Mejores tasas", "Liberación de cupo"],
+      "interest_rate_min": 0.8,
+      "interest_rate_max": 1.2,
+      "max_months": 60,
+      "is_active": true,
+      "order": 3
+    }
+  },
+  {
+    "model": "api.insuranceproduct",
+    "pk": 1,
+    "fields": {
+      "title": "Seguro Todo Riesgo",
+      "description": "Protección completa para tu vehículo contra todo tipo de siniestros.",
+      "coverages": ["Daños por accidente", "Robo total y parcial", "Responsabilidad civil", "Asistencia en carretera 24/7", "Conductor elegido"],
+      "tipo": "todo_riesgo",
+      "is_active": true,
+      "order": 1
+    }
+  },
+  {
+    "model": "api.insuranceproduct",
+    "pk": 2,
+    "fields": {
+      "title": "SOAT",
+      "description": "Seguro Obligatorio de Accidentes de Tránsito. Expedición inmediata.",
+      "coverages": ["Gastos médicos", "Incapacidad permanente", "Muerte", "Gastos funerarios"],
+      "tipo": "soat",
+      "is_active": true,
+      "order": 2
+    }
+  },
+  {
+    "model": "api.insuranceproduct",
+    "pk": 3,
+    "fields": {
+      "title": "Póliza Personalizada",
+      "description": "Diseñamos una póliza a tu medida según tus necesidades y presupuesto.",
+      "coverages": ["Coberturas a elegir", "Deducibles flexibles", "Asistencias adicionales", "Planes familiares"],
+      "tipo": "personalizado",
+      "is_active": true,
+      "order": 3
+    }
+  },
+  {
+    "model": "api.companyinfo",
+    "pk": 1,
+    "fields": {
+      "nombre": "DLX Automotive Hub",
+      "direccion": "Cra. 43A #11-19, El Poblado, Medellín, Antioquia",
+      "telefono": "+57 310 420 4713",
+      "email": "jorge.martinez@autodeluxe.co",
+      "horario_lv": "8:00 AM - 6:00 PM",
+      "horario_sabado": "9:00 AM - 5:00 PM",
+      "horario_domingo": "Cerrado",
+      "years_experience": 10,
+      "descripcion": "Somos tu aliado integral en el mundo automotriz. Ofrecemos compra y venta de vehículos, servicios de autospa premium, financiamiento y seguros.",
+      "valores": ["Confianza", "Calidad", "Transparencia", "Servicio al cliente"],
+      "whatsapp": "+57 310 420 4713"
+    }
+  }
+]
