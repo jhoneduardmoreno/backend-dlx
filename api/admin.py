@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.utils.html import format_html
+from django.utils.html import format_html, mark_safe
 from .models import (
     Vehicle, Testimonial, Service, QuotationRequest,
     ContactMessage, CreditOption, InsuranceProduct, CompanyInfo
@@ -39,7 +39,7 @@ class VehicleAdmin(admin.ModelAdmin):
                 '<img src="{}" style="width: 60px; height: 45px; object-fit: cover; border-radius: 4px;" />',
                 obj.imagen.url
             )
-        return format_html('<span style="color: #999; font-size: 12px;">Sin imagen</span>')
+        return mark_safe('<span style="color: #999; font-size: 12px;">Sin imagen</span>')
     imagen_preview.short_description = 'Imagen'
 
     def imagen_preview_large(self, obj):
@@ -49,7 +49,7 @@ class VehicleAdmin(admin.ModelAdmin):
                 '<img src="{}" style="max-width: 400px; max-height: 300px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />',
                 obj.imagen.url
             )
-        return format_html('<span style="color: #999;">No hay imagen cargada</span>')
+        return mark_safe('<span style="color: #999;">No hay imagen cargada</span>')
     imagen_preview_large.short_description = 'Vista previa'
 
 
