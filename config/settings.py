@@ -24,12 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3cxq$xskb(+y(5&n&)un%^t7ikr%8$*9*#xo49$1!g9frdll+d'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-3cxq$xskb(+y(5&n&)un%^t7ikr%8$*9*#xo49$1!g9frdll+d')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() in ('true', '1')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
 
 
 # Application definition
@@ -129,6 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Media files (Uploaded images)
 MEDIA_URL = '/media/'
@@ -138,17 +139,21 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS Configuration
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:3000",
-    "http://localhost:8080",
-]
+CORS_ALLOWED_ORIGINS = os.getenv(
+    'CORS_ALLOWED_ORIGINS',
+    'http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://localhost:8080'
+).split(',')
 
 CORS_ALLOW_CREDENTIALS = True
 
 # Permitir CORS en todas las rutas (incluyendo /media/)
 CORS_URLS_REGEX = r'^.*$'
+
+# Proxy headers
+USE_X_FORWARDED_HOST = True
+
+# CSRF trusted origins (needed behind reverse proxy)
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost').split(',')
 
 # Django REST Framework
 REST_FRAMEWORK = {
