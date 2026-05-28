@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-3cxq$xskb(+y(5&n&)un%^t7ikr%8$*9*#xo49$1!g9frdll+d')
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']  # required — no insecure fallback
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() in ('true', '1')
@@ -146,11 +146,12 @@ CORS_ALLOWED_ORIGINS = os.getenv(
 
 CORS_ALLOW_CREDENTIALS = True
 
-# Permitir CORS en todas las rutas (incluyendo /media/)
-CORS_URLS_REGEX = r'^.*$'
+# CORS solo en endpoints de API y media — NO en /admin/ (evita robo de cookies de sesión via XHR cross-origin).
+CORS_URLS_REGEX = r'^/(api|media|static)/.*$'
 
-# Proxy headers
+# Proxy headers — Caddy is the TLS terminator and forwards X-Forwarded-Proto.
 USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # CSRF trusted origins (needed behind reverse proxy)
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost').split(',')
@@ -158,8 +159,14 @@ CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost').spl
 # Django REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+    'DEFAULT_PAGINATION_CLASS': 'api.pagination.LargeResultsSetPagination',
+    'PAGE_SIZE': 100,
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '60/min',
+    },
 }

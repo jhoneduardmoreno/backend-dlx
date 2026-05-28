@@ -5,6 +5,13 @@ from .models import (
 )
 
 
+def _no_newlines(value: str) -> str:
+    """Reject control chars / CRLF in single-line fields — basic email-header-injection guard."""
+    if value and any(c in value for c in '\r\n\x00'):
+        raise serializers.ValidationError('Caracteres no permitidos.')
+    return value
+
+
 class VehicleSerializer(serializers.ModelSerializer):
     imagen_url = serializers.SerializerMethodField()
 
@@ -41,6 +48,10 @@ class VehicleListSerializer(serializers.ModelSerializer):
 
 
 class TestimonialSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(max_length=100, validators=[_no_newlines])
+    comment = serializers.CharField(max_length=2000)
+    service = serializers.CharField(max_length=100, required=False, allow_blank=True, allow_null=True, validators=[_no_newlines])
+
     class Meta:
         model = Testimonial
         fields = '__all__'
@@ -54,6 +65,14 @@ class ServiceSerializer(serializers.ModelSerializer):
 
 
 class QuotationRequestSerializer(serializers.ModelSerializer):
+    nombre = serializers.CharField(max_length=100, validators=[_no_newlines])
+    # Email opcional: el form "vende tu carro" no lo solicita para reducir fricción de conversión.
+    email = serializers.EmailField(max_length=254, required=False, allow_blank=True, allow_null=True, validators=[_no_newlines])
+    telefono = serializers.CharField(max_length=20, validators=[_no_newlines])
+    servicio = serializers.CharField(max_length=100, validators=[_no_newlines])
+    mensaje = serializers.CharField(max_length=5000)
+    vehiculo = serializers.CharField(max_length=100, required=False, allow_blank=True, allow_null=True, validators=[_no_newlines])
+
     class Meta:
         model = QuotationRequest
         fields = '__all__'
@@ -61,6 +80,12 @@ class QuotationRequestSerializer(serializers.ModelSerializer):
 
 
 class ContactMessageSerializer(serializers.ModelSerializer):
+    nombre = serializers.CharField(max_length=100, validators=[_no_newlines])
+    email = serializers.EmailField(max_length=254, validators=[_no_newlines])
+    telefono = serializers.CharField(max_length=20, validators=[_no_newlines])
+    servicio = serializers.CharField(max_length=100, validators=[_no_newlines])
+    mensaje = serializers.CharField(max_length=5000)
+
     class Meta:
         model = ContactMessage
         fields = '__all__'

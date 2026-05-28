@@ -10,13 +10,13 @@ class Vehicle(models.Model):
         ('reservado', 'Reservado'),
     ]
 
-    marca = models.CharField(max_length=50)
+    marca = models.CharField(max_length=50, db_index=True)
     modelo = models.CharField(max_length=100)
-    year = models.IntegerField()
+    year = models.IntegerField(db_index=True)
     km = models.IntegerField()
     price = models.DecimalField(max_digits=15, decimal_places=0)
     placa = models.CharField(max_length=10, unique=True, null=True, blank=True)
-    estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='disponible')
+    estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='disponible', db_index=True)
     descripcion = models.TextField(null=True, blank=True)
     imagen = models.ImageField(upload_to='vehicles/', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -38,7 +38,7 @@ class Testimonial(models.Model):
     comment = models.TextField()
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     service = models.CharField(max_length=100, null=True, blank=True)
-    approved = models.BooleanField(default=False)
+    approved = models.BooleanField(default=False, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -66,9 +66,9 @@ class Service(models.Model):
     benefits = models.JSONField(default=list)
     price = models.DecimalField(max_digits=12, decimal_places=0, null=True, blank=True)
     duration_days = models.IntegerField(null=True, blank=True)
-    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, db_index=True)
     icon = models.CharField(max_length=50, null=True, blank=True)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True, db_index=True)
     order = models.IntegerField(default=0)
 
     class Meta:
@@ -91,13 +91,13 @@ class QuotationRequest(models.Model):
     ]
 
     nombre = models.CharField(max_length=100)
-    email = models.EmailField()
+    email = models.EmailField(blank=True, null=True)
     telefono = models.CharField(max_length=20)
     servicio = models.CharField(max_length=100)
     mensaje = models.TextField()
     vehiculo = models.CharField(max_length=100, null=True, blank=True)
     valor_vehiculo = models.DecimalField(max_digits=15, decimal_places=0, null=True, blank=True)
-    estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='pendiente')
+    estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='pendiente', db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -118,7 +118,7 @@ class ContactMessage(models.Model):
     telefono = models.CharField(max_length=20)
     servicio = models.CharField(max_length=100)
     mensaje = models.TextField()
-    leido = models.BooleanField(default=False)
+    leido = models.BooleanField(default=False, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -139,7 +139,7 @@ class CreditOption(models.Model):
     interest_rate_min = models.FloatField(null=True, blank=True)
     interest_rate_max = models.FloatField(null=True, blank=True)
     max_months = models.IntegerField(default=60)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True, db_index=True)
     order = models.IntegerField(default=0)
 
     class Meta:
@@ -163,8 +163,8 @@ class InsuranceProduct(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     coverages = models.JSONField(default=list)
-    tipo = models.CharField(max_length=50, choices=TIPO_CHOICES)
-    is_active = models.BooleanField(default=True)
+    tipo = models.CharField(max_length=50, choices=TIPO_CHOICES, db_index=True)
+    is_active = models.BooleanField(default=True, db_index=True)
     order = models.IntegerField(default=0)
 
     class Meta:

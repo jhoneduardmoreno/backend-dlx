@@ -1,4 +1,4 @@
-from rest_framework import viewsets, status, filters
+from rest_framework import viewsets, status, filters, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
@@ -12,6 +12,14 @@ from .serializers import (
     ServiceSerializer, QuotationRequestSerializer, ContactMessageSerializer,
     CreditOptionSerializer, InsuranceProductSerializer, CompanyInfoSerializer
 )
+
+
+class CreateAnyAdminRead(permissions.BasePermission):
+    """Anonymous users can POST (submit form); only staff can list/retrieve customer data."""
+    def has_permission(self, request, view):
+        if request.method == 'POST':
+            return True
+        return bool(request.user and request.user.is_staff)
 
 
 class VehicleViewSet(viewsets.ModelViewSet):
@@ -93,25 +101,23 @@ class ServiceViewSet(viewsets.ReadOnlyModelViewSet):
 
 class QuotationRequestViewSet(viewsets.ModelViewSet):
     """
-    API para solicitudes de cotización.
-    POST /api/quotations/ - Crear solicitud de cotización
+    POST /api/quotations/  — anyone can submit a quotation request.
+    GET  /api/quotations/  — staff only (contains customer PII).
     """
     queryset = QuotationRequest.objects.all()
     serializer_class = QuotationRequestSerializer
+    permission_classes = [CreateAnyAdminRead]
     http_method_names = ['post', 'get']
-
-    def get_queryset(self):
-        # En producción, esto debería requerir autenticación admin
-        return QuotationRequest.objects.all()
 
 
 class ContactMessageViewSet(viewsets.ModelViewSet):
     """
-    API para mensajes de contacto.
-    POST /api/contact-messages/ - Enviar mensaje de contacto
+    POST /api/contact-messages/  — anyone can send a contact message.
+    GET  /api/contact-messages/  — staff only (contains customer PII).
     """
     queryset = ContactMessage.objects.all()
     serializer_class = ContactMessageSerializer
+    permission_classes = [CreateAnyAdminRead]
     http_method_names = ['post', 'get']
 
 
