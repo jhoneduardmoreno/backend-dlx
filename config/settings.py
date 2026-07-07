@@ -156,6 +156,14 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # CSRF trusted origins (needed behind reverse proxy)
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost').split(',')
 
+# Cookie hardening — only send session/CSRF cookies over HTTPS in production.
+# TLS is terminated at Caddy; SECURE_PROXY_SSL_HEADER (above) lets Django detect HTTPS
+# behind the proxy. Left False under DEBUG so local/loopback admin still works over HTTP.
+# (Resolves manage.py check --deploy W012/W016.)
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_HTTPONLY = True
+
 # Django REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
