@@ -373,6 +373,38 @@ class ThrottleTests(TestCase):
             )
 
 
+class SitemapTests(TestCase):
+    """Sitemap dinámico: rutas estáticas + una URL por vehículo disponible, sin vendidos."""
+
+    def setUp(self):
+        self.client = APIClient()
+        self.disponible = Vehicle.objects.create(
+            marca='Toyota', modelo='Corolla', year=2022, km=10000, price=85000000, estado='disponible',
+        )
+        self.vendido = Vehicle.objects.create(
+            marca='Mazda', modelo='CX-5', year=2021, km=30000, price=95000000, estado='vendido',
+        )
+
+    def test_sitemap_returns_xml(self):
+        resp = self.client.get('/sitemap.xml')
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertIn('application/xml', resp['Content-Type'])
+
+    def test_sitemap_lists_static_routes(self):
+        body = self.client.get('/sitemap.xml').content.decode()
+        self.assertIn('<loc>https://dlx.tatui.store/</loc>', body)
+        self.assertIn('/compra-venta-vehiculos', body)
+        self.assertIn('/creditos-seguros', body)
+
+    def test_sitemap_lists_available_vehicle_url(self):
+        body = self.client.get('/sitemap.xml').content.decode()
+        self.assertIn(f'/vehiculo/{self.disponible.id}</loc>', body)
+
+    def test_sitemap_excludes_sold_vehicle(self):
+        body = self.client.get('/sitemap.xml').content.decode()
+        self.assertNotIn(f'/vehiculo/{self.vendido.id}</loc>', body)
+
+
 class ModelStrTests(TestCase):
     """__str__ reprs are used in the Django admin change lists — keep them stable."""
 

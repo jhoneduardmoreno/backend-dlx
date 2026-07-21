@@ -31,6 +31,9 @@ DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() in ('true', '1')
 
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
 
+# Origen público del sitio (para construir URLs absolutas en el sitemap dinámico).
+SITE_URL = os.getenv('SITE_URL', 'https://dlx.tatui.store')
+
 
 # Application definition
 
